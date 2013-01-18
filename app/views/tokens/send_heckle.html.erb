@@ -1,0 +1,109 @@
+<link href="http://fonts.googleapis.com/css?family=Amatic+SC:400,700" media="all" rel="stylesheet" type="text/css">
+<script src="/javascripts/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+      $('.tomato').click(function(){
+        parent.$(parent.document).trigger("fireTomato");
+          return false;
+      });
+      $('.flower').click(function(){
+          parent.$(parent.document).trigger("fireFlower");
+          return false;
+      });
+      $('.pants').click(function(){
+          parent.$(parent.document).trigger("firePants");
+          return false;
+      });
+      $('.chicken').click(function(){
+          parent.$(parent.document).trigger("fireChicken");
+          return false;
+      });
+  });
+
+</script>
+<style>
+    .box-fr{
+        font-family: 'Amatic SC', cursive;
+        font-weight: 800;
+    }
+    .box-title{
+        margin: 0 auto;
+        width: 132px;
+    }
+    .box-title img{
+        float: left;
+        padding-right: 12px;
+    }
+    .box-title h2{
+        font-size: 38px;
+        line-height: 26px;
+        margin-left: 12px;
+    }
+    p{
+        font-size: 25px;
+    }
+    .buttons{
+        width: 480px;
+        margin: -10px auto;
+        text-align: center;
+        float:left;
+    }
+     a.button {
+         background: url(../images/img_sprite.png) no-repeat -287px 0px;
+         width: 203px;
+         height: 55px;
+         float: left;
+         margin: 0 8px 18px 8px;
+         padding: 14px 0 0 20px;
+         font-size: 19px;
+         line-height: 39px;
+         text-decoration: none;
+         color: black;
+         text-align: left;
+    }
+    a.button img{
+        float: left;
+        margin: 6px 9px 0 0;
+    }
+
+    a.buy_more{
+        color: #D94601;
+        font-size: 31px;
+        float: left;
+        margin-top: 0px;
+        margin-left: 135px;
+        clear: both;
+    }
+</style>
+<div class="box-fr">
+    <div class="box-title">
+      <img src="images/ic_heckle.png" width="30" height="28" alt="heckle">
+      <h2>HECKLE</h2>
+    </div>
+    <p>Show the performer that you like the show, or let them know that you're not amused</p>
+
+  <div class="buttons">
+
+        <% @Heckles.each do |d| %>
+        <a href="#" class="button <%= d.types %>">
+            <% if d.types == 'tomato' %>
+              <img src="images/ic_apple.png" width="23" height="28" alt="heckle">
+            <% end %>
+            <% if d.types == 'flower' %>
+              <img src="images/ic_heckle.png" width="30" height="28" alt="heckle">
+            <% end %>
+            <% if d.types == 'pants' %>
+              <img src="images/ic_pants.png" width="30" height="29" alt="heckle">
+            <% end %>
+            <% if d.types == 'chicken' %>
+              <img src="images/ic_chicken.png" width="30" height="29" alt="heckle">
+            <% end %>
+          Throw <%= d.types %> (<%= d.total.to_i %> left)
+        </a>
+
+        <% end %>
+        <a href="/accounts_settings#tokens" class="buy_more" target="_blank">BUY MORE THINGS TO HECKLE</a>
+  </div>
+
+
+</div>

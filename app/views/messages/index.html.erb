@@ -1,0 +1,159 @@
+<link href="http://fonts.googleapis.com/css?family=Amatic+SC:400,700" media="all" rel="stylesheet" type="text/css">
+<link href="/stylesheets/avatar.css" media="all" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/heads.css" media="all" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .box-msn{
+        display: block;
+        position: relative;
+        /*height: 57px; */
+        border-bottom: 1px solid black;
+        margin-top: 15px;
+        height:  auto;
+    }
+    .box-msn .thumb{
+        top: -38px;
+        left: -40px;
+    }
+    .box-msn p{
+        width: 370px;
+        position: relative;
+        left: 85px;
+        height: auto;
+        overflow: hidden;
+        padding: 0px;
+        margin: 0px;
+        padding-bottom: 10px;
+    }
+    .box-msn p a{
+        color: #000;
+        text-decoration: none;
+        font-family: 'Amatic SC', cursive;
+        font-weight: 400;
+        font-size: 15px;
+    }
+    .box-msn p strong{
+        display:block;
+    }
+    .box-msn p strong a{
+        font-family: 'Amatic SC', cursive;
+        font-weight: 600;
+        font-size: 17px;
+        text-decoration: underline;
+        color: #D94601;
+    }
+
+    .box-msn .indicador{
+        text-decoration: none;
+        color: black;
+        position: relative;
+        font-family: 'Amatic SC', cursive;
+        font-weight: 600;
+        font-size: 22px;
+        left: 470px;
+        top: -39px;
+
+    }
+    h2{
+        font-family: 'Amatic SC', cursive;
+        font-weight: 800;
+        text-align: center;
+        font-size: 38px;
+        margin: 0px;
+        padding: 0px;
+    }
+    h2 a{
+        font-size: 21px;
+        color: #D94601;
+        text-decoration: underline;
+    }
+
+    .new_messages{
+        background-color: red;
+        color: white;
+        padding: 2px 2px 2px 2px;
+        font-size: 11px;
+        margin: 2px 7px 0px 0px;
+        font-family: 'Amatic SC', cursive;
+        float: left;
+        font-weight: 800;
+    }
+</style>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/jquery.transit.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.thumb').each(function(k,v){
+
+            $('.thumb').eq(k).css({ scale: [0.5] });
+        });
+
+        $('.thumb').show();
+    });
+
+</script>
+<div class="content">
+
+    <h2>Messages <%= link_to 'new message', message_new_url %></h2>
+
+
+    <% if !@yarn.nil? %>
+			<% @yarn.each do |m| %>
+		    <%
+                user = YarnParticipant.find(:first, :conditions => ['user_id != ? AND yarn_id = ?', current_user.id, m.yarn_id ])
+                us = User.find(:first, :conditions => ['id = ?',user.user_id ])
+                a = Character.find(:all, :conditions => ['user_id = ?', user.user_id])
+                ms = Message.find(:first, :order => 'id desc', :conditions => ['yarn_id = ?', m.yarn_id])
+            %>
+          <div class="box-msn">
+             <div class="thumb" style="float:left;">
+            <%
+               if a.count == 0
+            %>
+                <div class="avatar preview avatar-head-1">
+                  <div class="avatar preview avatar-eyes-1"></div>
+                  <div class="avatar preview avatar-nose-1"></div>
+                  <div class="avatar preview avatar-mouth-1"></div>
+                </div>
+            <% else %>
+
+                <% a.each do |d| %>
+                    <% dd = d.section.split('-') %>
+                    <% if dd[1] == 'head' %>
+                        <div class="avatar preview <%= d.section %>">
+                          <% if dd[1] == 'head' %>
+                              <% a.each do |c| %>
+                                  <% dc = c.section.split('-') %>
+                                  <% if dc[1] == 'eyes' || dc[1] == 'nose' || dc[1] == 'mouth' %>
+                                      <div class="avatar preview <%= c.section %>"></div>
+                                  <% end %>
+                              <% end %>
+                          <% end %>
+                        </div>
+                    <% end %>
+                <% end %>
+
+            <% end %>
+                </div>
+                <%
+                   nuevo = 0
+                   msss = Message.find(:all, :conditions => ['yarn_id = ?', m.yarn_id])
+                   msss.each do |ff|
+                     nm = MessageReadState.find(:first,  :conditions => ['user_id = ? AND message_id = ?', current_user.id,ff.id])
+                     if !nm.nil?
+                        nuevo = 1
+                     end
+
+                   end
+
+                %>
+                <%#= debug msss %>
+                <p><strong><%= link_to us.name,  message_read_url(m.yarn_id) %><% if nuevo == 1 %><span class="new_messages">new</span><% end %></strong><%= link_to ms.body,  message_read_url(m.yarn_id) %></p>
+            <%= link_to '>',  message_read_url(m.yarn_id), :class => 'indicador' %>
+				<%#= link_to image_tag('img_head.jpg'), message_read_url(Digest::MD5.hexdigest(m.id.to_s)) %>
+
+		    </div>
+		<% end %>
+	<% else %>
+		<p>no messages</p>
+	<% end %>
+</div>

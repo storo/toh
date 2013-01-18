@@ -1,0 +1,702 @@
+<article id="container">
+<!-- start box -->
+<section class="box">
+<!-- start breadcrumb -->
+<section class="breadcrumb inner">
+  <ul>
+    <li class="first"><a href="/" title="Home"><img src="images/ic_home.png" width="21" height="20" alt="home" /></a></li>
+    <li><a href="/" title="your account">your account settings</a></li>
+  </ul>
+  <section class="clear"></section>
+</section>
+<!-- end breadcrumb -->
+<!-- start register-form -->
+
+<!-- start tab-block -->
+<section >
+  <!-- start tab-nav -->
+  <section class="tab-nav">
+    <ul class="tab-menu">
+      <li><a href="#user_information" title="User information">User information</a></li>
+      <li><a href="#privacy" title="Privacy">Privacy</a></li>
+      <li><a href="#create_your_character" title="your avatar">Character settings</a></li>
+      <li><a href="#tokens" title="Tokens, Stores and Statement">Tokens and Stores</a></li>
+      <li><a href="#tab5" title="Billing information">Billing information</a></li>
+      <li><a href="#friends" title="Friends">Friends</a></li>
+    </ul>
+  </section>
+  <!-- end tab-nav -->
+  <!-- start tab content -->
+  <section class="tab-content">
+    <section class="icons">&nbsp;</section>
+    <!-- start tab1 -->
+    <section id="user_information" class="tab-detail">
+    <%= form_tag("/saveinformation", :method => "post", :class => 'form-information', :id => 'form-user-information',:multipart => true)  do %>
+        <section class="rowline">
+          <h3>Your information</h3>
+         <p>Want to share a few more details about yourself? Feel free to fill in as much (or as little) as you like.</p>
+
+          <% if session[:save] %>
+              <div class="warning">
+                <a class="close" href="#">X</a>
+                <p><%=  session[:save] %></p>
+              </div>
+              <% session[:save] = nil %>
+          <% end %>
+          <section class="clear"></section>
+          <section class="row">
+            <section class="td1 left">Profile Pic:</section>
+            <section class="td2 left">
+
+              <input type="file" class="upload" id="user_pic" name="user[image]" />
+              <input type="text" id="user_pic_fake"  value="" class="form-input-file" style="margin-left: 2px"  />
+              <%= image_tag (!current_user.image_fb.nil? && current_user.image_file_size.nil? )? current_user.image_fb: current_user.image('thumb'), :width => 75, :height => 75, :alt => current_user.name %>
+
+
+
+            </section>
+            <section class="clear"></section>
+          </section>
+          <section class="row">
+            <section class="td1 left">Full Name:</section>
+            <section class="td2 left">
+              <input type="text" id="user_name" name="user[name]" value="<%= current_user.name %>" style="margin-left: 2px;" class="form-input-medio"  />
+
+            </section>
+            <section class="clear"></section>
+          </section>
+
+          <section class="row">
+            <section class="td1 left">Gender:</section>
+            <section class="td2 left">
+              <select class="form-input-select" id="user_gender" name="user[gender]" style="margin-left: 2px;">
+                    <option>Select Gender</option>
+                    <option <%= (current_user.gender == 'Female')? 'selected="selected"':''%>>Female</option>
+                    <option <%= (current_user.gender == 'Male')? 'selected="selected"':''%>>Male</option>
+              </select>
+            </section>
+            <section class="clear"></section>
+          </section>
+
+
+          <section class="row">
+            <section class="td1 left">BIO:</section>
+            <section class="td2 left">
+              <textarea id="user_about" name="user[about]" class="form-textarea" ><%=  current_user.about %></textarea>
+            </section>
+            <section class="clear"></section>
+          </section>
+
+          <section class="row">
+            <section class="td1 left">INTEREST:</section>
+            <section class="td2 left">
+              <input type="text" id="user_interest" name="user[interest]" value="<%= current_user.interest %>"  style="margin-left: 2px;" class="form-input-medio" placeholder="SEPARATE WITH COMMAS"  />
+
+            </section>
+            <section class="clear"></section>
+          </section>
+          <section class="row">
+            <section class="td1 left">Birth Date:</section>
+            <section class="td2 left">
+              <!--<input type="text" id="user_birthdate" name="user[birthdate]" value="<%= current_user.birthdate %>" style="margin-left: 2px;"  class="form-input-medio" placeholder="Example: 2012/12/01"  />-->
+              <%=  date_select("user", "birthdate", :prompt => true, :start_year => Time.now.year - 80, :end_year => Time.now.year - 10) %>
+            </section>
+            <section class="clear"></section>
+          </section>
+          <section class="row">
+            <section class="td1 left">Hometown:</section>
+            <section class="td2 left">
+              <input type="text" id="user_hometown" name="user[hometown]" value="<%= current_user.hometown %>" style="margin-left: 2px;" class="form-input-medio"  />
+
+            </section>
+            <section class="clear"></section>
+          </section>
+
+        </section>
+
+      <% end %>
+      <section class="creative-block">
+        <section class="clear"></section>
+
+        <a href="#" class="button button2" title="Save" onclick="document.getElementById('form-user-information').submit();">Save</a>
+      </section>
+
+    </section>
+    <!-- end tab1 -->
+    <!-- start tab1 -->
+    <section id="privacy" class="tab-detail">
+
+        <%= form_tag("/saveprivacy", :method => "post", :class => 'form-information', :id => 'form-user-privacy')  do %>
+        <section class="rowline">
+          <h3>Privacy settings</h3>
+          <p>Let us know when you would like us to email you by ticking the boxes below...</p>
+
+          <%
+            pri = Privacy.find(:first, :conditions => ['user_id = ?', current_user.id], :order => 'id DESC')
+          %>
+          <% if session[:saveprivacy] %>
+              <div class="warning">
+                <a class="close" href="#">X</a>
+                <p><%=  session[:saveprivacy] %></p>
+              </div>
+              <% session[:saveprivacy] = nil %>
+          <% end %>
+          <section class="clear"></section>
+          <section class="row">
+            <section class="td1 left"></section>
+            <section class="td2 left" style="width:450px;">
+              <label><span class="checkbox"><input name="privacy[option1]" type="checkbox" value="1" <%= (!pri.nil?)? ((pri.option1 == 1)? 'checked="checked"' : '' ): "" %> /></span>When a user sends you a direct message</label>
+              <section class="clear"></section>
+              <label><span class="checkbox"><input name="privacy[option2]" type="checkbox" value="1" <%= (!pri.nil?)? ((pri.option2 == 1)? 'checked="checked"' : '' ): "" %> /></span>When a user friends you</label>
+              <section class="clear"></section>
+              <label><span class="checkbox"><input name="privacy[option3]" type="checkbox" value="1" <%= (!pri.nil?)? ((pri.option3 == 1)? 'checked="checked"' : '' ): "" %> /></span>When a user follows your performance schedule</label>
+              <section class="clear"></section>
+              <label><span class="checkbox"><input name="privacy[option4]" type="checkbox" value="1" <%= (!pri.nil?)? ((pri.option4 == 1)? 'checked="checked"' : '' ): "" %> /></span>When a followed performer schedules a show</label>
+              <section class="clear"></section>
+              <label><span class="checkbox"><input name="privacy[option5]" type="checkbox" value="1" <%= (!pri.nil?)? ((pri.option5 == 1)? 'checked="checked"' : '' ): "" %> /></span>Weekly updates from The Open Hat</label>
+              <section class="clear"></section>
+            </section>
+            <section class="clear"></section>
+          </section>
+          <section class="row">
+            <section class="td1 left"></section>
+            <section class="td2 left" style="width:450px;">
+               <label>Who can send you private messages </label>
+              <select class="form-input-select" id="privacy_option_6" name="privacy[option6]" style="margin-left: 2px;">
+                <option value="" >Select option</option>
+                <option <%= (!pri.nil?)? ((pri.option6 == 'All my followers')? 'selected="selected"' : '' ): "" %>>All my followers</option>
+                <option <%= (!pri.nil?)? ((pri.option6 == 'Only users I follow back')? 'selected="selected"' : '' ): "" %>>Only users I follow back</option>
+              </select>
+
+              <section class="clear"></section>
+            </section>
+            <section class="clear"></section>
+          </section>
+
+      </section>
+      <% end %>
+      <section class="creative-block">
+        <section class="clear"></section>
+
+        <a href="#privacy" class="button button2" title="Save" id="save-privacy" onclick="document.getElementById('form-user-privacy').submit();">Save</a>
+      </section>
+    </section>
+    <!-- end tab1 -->
+    <!-- start tab1 -->
+    <section id="create_your_character" class="tab-detail">
+      <section class="creative-block">
+
+        <h3>Character settings</h3>
+        <p>Let the world see who you really are, flip through the character customization until you get one that reflects your personality...</p>
+        <div class="notificacion"></div>
+
+
+        <section class="clear"></section>
+        <ul class="tabnav2">
+          <li class="active"><a href="#Body" title="Body">Body</a></li>
+          <li><a href="#Head" title="Head">Head</a></li>
+        </ul>
+        <section class="clear"></section>
+        <!-- start tab-content2 -->
+        <section class="tab-content2">
+          <!-- start tab1 -->
+          <div id="Body" class="tab-detail2">
+            <!-- start left -->
+            <section class="Left-side">
+              <!-- start slide1 -->
+              <section class="slide1">
+                <a href="#" class="left" title="Pervious">prev</a>
+                <a href="#" class="right" title="Next">next</a>
+
+                <%
+                   if @character.count == 0
+                %>
+                    <div class="avatar box-avatar avatar-head-1"></div>
+                <% else %>
+                    <% @character.each do |d| %>
+                        <% section = d.section.split('-') %>
+                        <% if section[1] == 'head' && (section[2] == '43' || section[2] == '44' || section[2] == '45') %>
+                                <script>$(document).ready(function(){  $('.tabnav2 li').eq(1).hide();})</script>
+                        <% end %>
+                        <% if section[1] == 'head' %>
+                            <div class="avatar box-avatar <%= d.section %>"></div>
+                        <% end  %>
+                    <% end %>
+                <% end %>
+
+              </section>
+              <!-- end slide1 -->
+              <!-- start slide1 -->
+              <section class="slide1">
+                <a href="#" class="left" title="Pervious">prev</a>
+                <a href="#" class="right" title="Next">next</a>
+                <%
+                   if @character.count == 0
+                %>
+                    <div class="avatar box-avatar avatar-jacket-1"></div>
+                <% else %>
+                    <% @character.each do |d| %>
+                        <% section = d.section.split('-') %>
+                        <% if section[1] == 'jacket' %>
+                            <div class="avatar box-avatar <%= d.section %>"></div>
+                        <% end  %>
+                    <% end %>
+                <% end %>
+              </section>
+              <!-- end slide1 -->
+              <!-- start slide1 -->
+              <section class="slide1">
+                <a href="#" class="left" title="Pervious">prev</a>
+                <a href="#" class="right" title="Next">next</a>
+                <%
+                   if @character.count == 0
+                %>
+                    <div class="avatar box-avatar avatar-legs-1"></div>
+                <% else %>
+                    <% @character.each do |d| %>
+                        <% section = d.section.split('-') %>
+                        <% if section[1] == 'legs' %>
+                            <div class="avatar box-avatar <%= d.section %>"></div>
+                        <% end  %>
+                    <% end %>
+                <% end %>
+              </section>
+              <!-- end slide1 -->
+            </section>
+            <!-- end left -->
+            <!-- start right -->
+            <section class="Right-side">
+              <!-- start imgb -->
+              <section class="imgb">
+                    <%
+                       if @character.count == 0
+                    %>
+                    <div class="avatar preview avatar-head-1">
+                      <div class="avatar preview avatar-eyes-1"></div>
+                      <div class="avatar preview avatar-nose-1"></div>
+                      <div class="avatar preview avatar-mouth-1"></div>
+                    </div>
+                    <div class="avatar preview avatar-jacket-1"></div>
+                    <div class="avatar preview avatar-legs-1"></div>
+                    <div class="avatar preview avatar-feet-1"></div>
+
+                    <% else %>
+                        <% @character.each do |d| %>
+                            <% dd = d.section.split('-') %>
+                            <% if dd[1] == 'head' || dd[1] == 'jacket' || dd[1] == 'legs' || dd[1] == 'feet' %>
+                            <div class="avatar preview <%= d.section %>">
+                                <% if dd[1] == 'head' %>
+                                  <% @character.each do |c| %>
+                                      <% dc = c.section.split('-') %>
+                                      <% if dc[1] == 'eyes' || dc[1] == 'nose' || dc[1] == 'mouth' %>
+                                        <div class="avatar preview <%= c.section %>"></div>
+                                      <% end %>
+                                  <% end %>
+                                <% end %>
+                            </div>
+                            <% end %>
+                        <% end %>
+
+
+
+                    <% end %>
+              </section>
+              <!-- end imgb -->
+              <section class="slide1">
+                <a href="#" class="left" title="Pervious">prev</a>
+                <a href="#" class="right" title="Next">next</a>
+                <%
+                   if @character.count == 0
+                %>
+                    <div class="avatar box-avatar avatar-feet-1"></div>
+                <% else %>
+                    <% @character.each do |d| %>
+                        <% section = d.section.split('-') %>
+                        <% if section[1] == 'feet' %>
+                            <div class="avatar box-avatar <%= d.section %>"></div>
+                        <% end  %>
+                    <% end %>
+                <% end %>
+              </section>
+            </section>
+            <!-- end right -->
+          </div>
+          <!-- end tab1 -->
+          <!-- start tab1 -->
+          <div id="Head" class="tab-detail2">
+            <!-- start left -->
+            <section class="Left-side">
+              <!-- start slide1 -->
+              <section class="slide1">
+                <a href="#" class="left" title="Pervious">prev</a>
+                <a href="#" class="right" title="Next">next</a>
+                <%
+                   if @character.count == 0
+                %>
+                    <div class="avatar box-avatar avatar-eyes-1"></div>
+                <% else %>
+                    <% @character.each do |d| %>
+                        <% section = d.section.split('-') %>
+                        <% if section[1] == 'eyes' %>
+                            <div class="avatar box-avatar <%= d.section %>"></div>
+                        <% end  %>
+                    <% end %>
+                <% end %>
+
+              </section>
+              <!-- end slide1 -->
+              <!-- start slide1 -->
+              <section class="slide1">
+                <a href="#" class="left" title="Pervious">prev</a>
+                <a href="#" class="right" title="Next">next</a>
+                <%
+                   if @character.count == 0
+                %>
+                    <div class="avatar box-avatar avatar-nose-1"></div>
+                <% else %>
+                    <% @character.each do |d| %>
+                        <% section = d.section.split('-') %>
+                        <% if section[1] == 'nose' %>
+                            <div class="avatar box-avatar <%= d.section %>"></div>
+                        <% end  %>
+                    <% end %>
+                <% end %>
+
+              </section>
+              <!-- end slide1 -->
+              <!-- start slide1 -->
+              <section class="slide1">
+                <a href="#" class="left" title="Pervious">prev</a>
+                <a href="#" class="right" title="Next">next</a>
+                <%
+                   if @character.count == 0
+                %>
+                    <div class="avatar box-avatar avatar-mouth-1"></div>
+                <% else %>
+                    <% @character.each do |d| %>
+                        <% section = d.section.split('-') %>
+                        <% if section[1] == 'mouth' %>
+                            <div class="avatar box-avatar <%= d.section %>"></div>
+                        <% end  %>
+                    <% end %>
+                <% end %>
+
+              </section>
+              <!-- end slide1 -->
+            </section>
+            <!-- end left -->
+            <!-- start right -->
+            <section class="Right-side">
+              <!-- start imgb -->
+              <section class="imgb">
+                <%
+                   if @character.count == 0
+                %>
+                    <div class="avatar preview avatar-head-1">
+                      <div class="avatar preview avatar-eyes-1"></div>
+                      <div class="avatar preview avatar-nose-1"></div>
+                      <div class="avatar preview avatar-mouth-1"></div>
+                    </div>
+                    <div class="avatar preview avatar-jacket-1"></div>
+                    <div class="avatar preview avatar-legs-1"></div>
+                    <div class="avatar preview avatar-feet-1"></div>
+
+                <% else %>
+                    <% @character.each do |d| %>
+                        <% dd = d.section.split('-') %>
+                        <% if dd[1] == 'head' || dd[1] == 'jacket' || dd[1] == 'legs' || dd[1] == 'feet' %>
+                            <div class="avatar preview <%= d.section %>">
+                              <% if dd[1] == 'head' %>
+                                  <% @character.each do |c| %>
+                                      <% dc = c.section.split('-') %>
+                                      <% if dc[1] == 'eyes' || dc[1] == 'nose' || dc[1] == 'mouth' %>
+                                          <div class="avatar preview <%= c.section %>"></div>
+                                      <% end %>
+                                  <% end %>
+                              <% end %>
+                            </div>
+                        <% end %>
+                    <% end %>
+
+
+
+                <% end %>
+              </section>
+              <!-- end imgb -->
+            </section>
+            <!-- end right -->
+          </div>
+          <!-- end tab1 -->
+        </section>
+        <!-- end tab-content2 -->
+        <section class="clear"></section>
+
+        <a href="#" class="button button2" title="Save" id="save-avatar">Save</a>
+      </section>
+
+
+    </section>
+    <!-- end tab1 -->
+    <!-- start tab1 -->
+    <section id="tokens" class="tab-detail">
+        <section class="creative-block">
+
+
+          <div class="form-information">
+            <section class="rowline">
+              <h3>Tokens, Stores and Statement</h3>
+              <p>You can use credits to tip or heckle performers and to purchase other fun stuff on The Open Hat. Below is your current credit balance and statement...</p>
+
+              <p class="now_tokens">You have (<span class="current_tokens"><%= @t %></span>) tokens
+
+              </p>
+              <% mn = MoneyReturn.find(:first, :conditions => ['user_id = ? AND status = 0', current_user.id]) %>
+              <% if mn.nil? %>
+                  <% if @t >= 160 %>
+                      <p class="now_tokens"><a href="/cashout"  class="cashout">Cash out tokens</a>
+                      </p>
+                  <% end %>
+              <% else %>
+                    <p class="now_tokens">Cash out pendent (pay date at: <%= mn.date_return %>)</p>
+              <% end %>
+
+              <h3>Buy Tokens</h3>
+              <p>select package of tokens to buy</p>
+              <% @tokens.each do |d| %>
+                  <section class="token_item">
+                    <p><%= d.quantity %> Tokens</p>
+                    <p>Price: <%= d.price %> USD</p>
+                    <%# payment_service_for d.id, PAYPAL_ACCOUNT, :amount => d.price, :currency => @currency, :service => :paypal do |service|
+                      service.customer :first_name => @user.first_name, :last_name => @user.last_name, :phone => @user.phone, :email => @user.email
+                      service.billing_address :city => @user.city, :address1 => @user.address1, :state => @user.state, :country => @user.country, :zip => @user.zip
+                      service.item_name d.name
+                      service.invoice @invoice
+                      service.tax "0.00"
+
+                      #service.notify_url url_for(:only_path => false,:controller => 'pay_pal', :action => 'notify')
+                      service.return_url url_for(:only_path => false, :controller => 'tokens',:action => 'show')
+                      service.cancel_return_url url_for(:only_path => false, :controller => 'tokens', :action => 'cancel') %>
+                        <%#= submit_tag 'Buy'%>
+                    <% #end %>
+
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                       <input name="commit" type="submit" value="Buy">
+
+                      <input id="item_number" name="item_number" type="hidden" value="<%= d.id %>">
+                      <input id="custom" name="custom" type="hidden" value="<%= d.id %>">
+                      <input id="business" name="business" type="hidden" value="<%= PAYPAL_ACCOUNT %>">
+                      <input id="amount" name="amount" type="hidden" value="<%= d.price %>">
+                      <input id="currency_code" name="currency_code" type="hidden" value="USD">
+                      <input id="cmd" name="cmd" type="hidden" value="_ext-enter">
+                      <input id="redirect_cmd" name="redirect_cmd" type="hidden" value="_xclick">
+                      <input id="quantity" name="quantity" type="hidden" value="1">
+                      <input id="item_name" name="item_name" type="hidden" value="<%= d.name %>">
+                      <input id="no_shipping" name="no_shipping" type="hidden" value="1">
+                      <input id="no_note" name="no_note" type="hidden" value="1">
+                      <input id="charset" name="charset" type="hidden" value="utf-8">
+                      <input id="address_override" name="address_override" type="hidden" value="0">
+                      <input id="bn" name="bn" type="hidden" value="ActiveMerchant">
+                      <input id="first_name" name="first_name" type="hidden" value="saran">
+                      <input id="last_name" name="last_name" type="hidden" value="v">
+                      <input id="email" name="email" type="hidden" value="some_per@gmail.com">
+                      <input id="invoice" name="invoice" type="hidden" value="<%= @invoice%>">
+                      <input id="tax" name="tax" type="hidden" value="0.00">
+                      <input id="return" name="return" type="hidden" value="http://beta.theopenhat.com/buy_show">
+                      <input id="cancel_return" name="cancel_return" type="hidden" value="http://beta.theopenhat.com/buy_cancel">
+                    </form>
+                  </section>
+              <% end %>
+              <section class="clear"></section>
+              <h3>Store</h3>
+              <ul class="tabnav3">
+                <li class="active"><a href="#heckles" title="Heckles">Heckles</a></li>
+                <li><a href="#stages" title="Stages">Stages</a></li>
+              </ul>
+              <section class="clear"></section>
+              <!-- start tab-content2 -->
+              <section class="tab-content3">
+              <!-- start tab1 -->
+                <div id="heckles" class="tab-detail3">
+                    <section class="token_item tabs">
+                        <p>Flowers</p>
+                        <span class="flower"></span>
+                        <div class="box-textbottom">
+                          <p>10 Flowers x 1 Token</p>
+                          <button rel="flower-1-10" class="buy_heckle">Buy</button>
+
+                        </div>
+
+                    </section>
+                    <section class="token_item tabs">
+                        <p>Tomatos</p>
+                        <span class="tomato"></span>
+                        <div class="box-textbottom">
+                            <p>10 Tomatos x 1 Token</p>
+                            <button rel="tomato-1-10" class="buy_heckle">Buy</button>
+                        </div>
+                    </section>
+                    <section class="token_item tabs">
+                        <p>Pants</p>
+                        <span class="pants"></span>
+                        <div class="box-textbottom">
+                            <p>10 Pants x 2 Tokens</p>
+                          <button rel="pants-2-10" class="buy_heckle">Buy</button>
+
+                        </div>
+                    </section>
+                    <section class="token_item tabs">
+                        <p>Chickens</p>
+                        <span class="chicken"></span>
+                        <div class="box-textbottom">
+                            <p>10 Chickens x 2 Tokens</p>
+                          <button rel="chicken-2-10" class="buy_heckle">Buy</button>
+
+                        </div>
+                    </section>
+                </div>
+              <!-- end tab1 -->
+              <!-- start tab1 -->
+                <div id="stages" class="tab-detail3">
+                  <section class="stages_item tabs">
+                    <p>Wood</p>
+                    <img src="/images/ec-3.png" />
+                    <div class="box-textbottom">
+                      <p>10 Tokens</p>
+                      <% pool = 0 %>
+                      <% if !@stage_item.nil? %>
+                      <% @stage_item.each do |si| %>
+                            <% if si.item.to_i == 3 %>
+                                 <% pool = 1 %>
+                            <% end %>
+                      <% end %>
+                      <% end %>
+                      <% if pool == 0 %>
+                          <button rel="wood-3-10" class="buy_stage">Buy</button>
+
+                      <% end %>
+                      </div>
+                  </section>
+
+                </div>
+              <!-- end tab1 -->
+              </section>
+              <!-- end tab-content2 -->
+
+
+            </section>
+
+
+          </div>
+
+        </section>
+    </section>
+    <section id="tab5" class="tab-detail">
+      <section class="creative-block">
+
+
+        <form action="#" class="form-information">
+          <section class="rowline">
+            <h3>Billing Information</h3>
+
+            <section class="row">
+              <section class="td1 left">Paypal Account:</section>
+              <section class="td2 left">
+                <input type="text" id="billing_account" name="billing[account]"  class="input form-med" />
+              </section>
+              <section class="clear"></section>
+            </section>
+
+            <section class="row">
+              <section class="td1 left">Address:</section>
+              <section class="td2 left">
+                <input type="text" id="billing_address" name="billing[address]"  class="input form-med" />
+              </section>
+              <section class="clear"></section>
+            </section>
+            <section class="row">
+              <section class="td1 left">City:</section>
+              <section class="td2 left">
+                <input type="text" id="billing_city" name="billing[city]"  class="input form-med" />
+              </section>
+              <section class="clear"></section>
+            </section>
+            <section class="row">
+              <section class="td1 left">State:</section>
+              <section class="td2 left">
+                <input type="text" id="billing_state" name="billing[state]"  class="input form-med" />
+              </section>
+              <section class="clear"></section>
+            </section>
+            <section class="row">
+              <section class="td1 left">Country:</section>
+              <section class="td2 left">
+                <input type="text" id="billing_country" name="billing[country]"  class="input form-med" />
+              </section>
+              <section class="clear"></section>
+            </section>
+            <section class="row">
+              <section class="td1 left">Zip:</section>
+              <section class="td2 left">
+                <input type="text" id="billing_zip" name="billing[zip]"  class="input form-med" />
+              </section>
+              <section class="clear"></section>
+            </section>
+
+          </section>
+        </form>
+        </section>
+        <section class="creative-block">
+          <section class="clear"></section>
+
+          <a href="#" class="button button2" title="Save" id="save-billing">Save</a>
+        </section>
+
+    </section>
+    <section id="friends" class="tab-detail">
+      <form action="#" class="form-information">
+        <section class="rowline">
+          <h3>Friends</h3>
+          <p>Here are all your friends and followed performers on The Open Hat so you can keep an eye on what they are up to....</p>
+           <div>
+             <% Follower.find(:all, :conditions => ['user_id = ?',current_user.id ]).each do |fr| %>
+                   <% f = User.find(:first, :conditions => ['md5(id) = ?', fr.leader]) %>
+                   <div class="friend">
+                     <img src="<%= f.image('thumb') %>" alt="">
+                     <a href="/profile/<%= fr.leader %>"><%= f.name %></a>
+                  </div>
+             <% end %>
+           </div>
+
+        </section>
+       </form>
+    </section>
+    <!-- end tab1 -->
+  </section>
+  <!-- end tab content -->
+</section>
+<!-- end tab-block -->
+<section class="clear"></section>
+<!-- start bottom-link -->
+<% if !@performance_random.nil? %>
+    <!-- start bottom-link -->
+
+    <nav class="bottom-link">
+      <ul>
+        <li>random performers:</li>
+        <% countRandom = 1 %>
+        <%  @performance_random.each do |rp| %>
+            <li><a href="/profile/<%= Digest::MD5.hexdigest(rp.user_id.to_s) %>" title="<%= rp.user.name %>"><%= rp.user.name %></a></li>
+            <% if @performance_random.count !=  countRandom %>
+                <li>/</li>
+            <% end %>
+            <% countRandom = countRandom + 1 %>
+        <% end %>
+      </ul>
+      <section class="clear"></section>
+    </nav>
+    <!-- end bottom-link -->
+<% end %>
+<!-- end bottom-link -->
+</section>
+<!-- end box -->
+</article>

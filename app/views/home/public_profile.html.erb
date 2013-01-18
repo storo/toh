@@ -1,0 +1,134 @@
+<article id="container">
+  <!-- start box -->
+  <section class="box">
+    <!-- start left side -->
+    <section class="Left-side">
+      <!-- start img-block -->
+      <section class="img-block">
+
+        <section class="frame">&nbsp;</section>
+        <% if !@user.image_fb.nil? %>
+            <%= image_tag @user.image_fb.gsub("square", "large"), :width => 298, :height => 350, :alt => @user.name %>
+        <% else %>
+            <%= image_tag @user.image('profile'), :width => 298, :height => 350, :alt => @user.name %>
+        <% end %>
+      </section>
+      <!-- end img-block -->
+      <section class="clear"></section>
+      <!-- start follow us -->
+      <section class="follow-us">
+        <%
+            rates = Rate.find(:all, :conditions => ['performer = ?', @user.id])
+            rate = 0
+            rates.each do |r|
+
+            end
+
+        %>
+        <p>Rate this performer <span class="rate" date-rating="<%= rate %>"></span></p>
+        <h3><%= @followers.count%>  followers</h3>
+        <%
+           if @followers.count > 0
+             @followers.each do |f|
+        %>
+                <div class="follower">
+                  <%= link_to(image_tag((!f.user.image_fb.nil? && f.user.image_file_size.nil? )? f.user.image_fb: f.user.image('thumb'), :alt => f.user.name, :width => '50'), public_profile_path( Digest::MD5.hexdigest(f.user.id.to_s)))  %>
+                </div>
+            <% 		end
+                       else
+            %>
+
+        <% end %>
+      </section>
+      <!-- end follow us -->
+    </section>
+    <!-- end left side -->
+    <!-- start right side -->
+    <section class="Right-side">
+      <!-- start profile -->
+      <section class="profile">
+        <div style="position: absolute;right: 70px;">
+          <%
+             if @character.count == 0
+          %>
+              <div class="avatar preview avatar-head-1">
+                <div class="avatar preview avatar-eyes-1"></div>
+                <div class="avatar preview avatar-nose-1"></div>
+                <div class="avatar preview avatar-mouth-1"></div>
+              </div>
+              <div class="avatar preview avatar-jacket-1"></div>
+              <div class="avatar preview avatar-legs-1"></div>
+              <div class="avatar preview avatar-feet-1"></div>
+
+          <% else %>
+              <% @character.each do |d| %>
+                  <% dd = d.section.split('-') %>
+                  <% if dd[1] == 'head' || dd[1] == 'jacket' || dd[1] == 'legs' || dd[1] == 'feet' %>
+                      <div class="avatar preview <%= d.section %>">
+                        <% if dd[1] == 'head' %>
+                            <% @character.each do |c| %>
+                                <% dc = c.section.split('-') %>
+                                <% if dc[1] == 'eyes' || dc[1] == 'nose' || dc[1] == 'mouth' %>
+                                    <div class="avatar preview <%= c.section %>"></div>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                      </div>
+                  <% end %>
+              <% end %>
+
+
+
+          <% end %>
+        </div>
+        <section class="rowline">
+          <h2><%= @user.name%></h2>
+          <span><% if !@user.hometown.nil? %><%= image_tag 'ic_location.png', :alt => 'location' %><%= @user.hometown%><% end %></span>
+          <h3>About me</h3>
+          <p><%= @user.about%> </p>
+        </section>
+        <section class="clear"></section>
+        <% if current_user %>
+            <% f = Follower.find(:first, :conditions => ['user_id = ? AND leader = ?',current_user.id,Digest::MD5.hexdigest(@user.id.to_s) ]) %>
+            <% if f.nil? %>
+                <section class="button"><%= link_to 'follow', '#', :class => 'perfomer', :title => Digest::MD5.hexdigest(@user.id.to_s) %></section>
+            <% else  %>
+                <section class="button"><%= link_to 'unfollow', '#', :class => 'perfomer', :title => Digest::MD5.hexdigest(@user.id.to_s) %></section>
+            <% end %>
+
+            <section class="button button2"><a href="#" title="send message">send message</a></section>
+            <section class="clear"></section>
+        <% end  %>
+
+      </section>
+      <!-- end profile -->
+      <!-- start activity -->
+      <section class="activity">
+        <h3>Recent activiy</h3>
+        <ul>
+          <%
+             activity = Activity.find(:all, :limit => 5, :conditions => ['user_id = ?', @user.id])
+             activity.each do |act|
+               sss = Stage.find(:first, :conditions => ['SUBSTR(md5(id),1,11) = ?', act.stage_id ])
+          %>
+              <li>
+                <img src="<%= sss.image(:thumb) %>" width="100" height="75" alt="activity">
+                <span class="date">6 days ago</span>
+                <p><%= act.description.html_safe %></p>
+                <section class="clear"></section>
+              </li>
+
+          <% end %>
+
+        </ul>
+      </section>
+      <!-- end activity -->
+    </section>
+    <!-- end right side -->
+    <section class="clear"></section>
+    <!-- start bottom-link -->
+
+    <!-- end bottom-link -->
+  </section>
+  <!-- end box -->
+</article>

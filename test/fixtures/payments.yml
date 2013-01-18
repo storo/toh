@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  invoice: MyString
+  payer_id: MyString
+  payment_date: MyString
+  payment_status: MyString
+  first_name: MyString
+  mc_fee: MyString
+  business: MyString
+  quantity: MyString
+  payer_email: MyString
+  payment_type: MyString
+  last_name: MyString
+  payment_fee: MyString
+  item_name: MyString
+  mc_currency: MyString
+  item_number: MyString
+  residence_country: MyString
+  payment_gross: MyString
+
+two:
+  invoice: MyString
+  payer_id: MyString
+  payment_date: MyString
+  payment_status: MyString
+  first_name: MyString
+  mc_fee: MyString
+  business: MyString
+  quantity: MyString
+  payer_email: MyString
+  payment_type: MyString
+  last_name: MyString
+  payment_fee: MyString
+  item_name: MyString
+  mc_currency: MyString
+  item_number: MyString
+  residence_country: MyString
+  payment_gross: MyString
