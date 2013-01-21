@@ -2323,3 +2323,13 @@ ol li
     height: auto;
     clear: both;
 }
+
+.tabla_cart{
+    border: 1px solid;
+    width: 800px;
+    margin: 10px 0px 10px 57px; 
+}
+
+.tabla_cart th{
+    
+}
