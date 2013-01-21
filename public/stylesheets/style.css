@@ -1,4 +1,4 @@
-html, body, div, span, applet, object, iframe,
+
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -2330,6 +2330,18 @@ ol li
     margin: 10px 0px 10px 57px; 
 }
 
-.tabla_cart th{
+.tabla_cart thead{
+    
+}
+
+.tabla_cart thead th{
+    
+}
+
+.tabla_cart tbody{
+    
+}
+
+.tabla_cart thead td{
     
 }

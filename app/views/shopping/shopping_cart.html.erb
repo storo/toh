@@ -8,6 +8,9 @@
     </ul>
     <section class="clear"></section>
   </section>
+
+<h1>My Shopping Cart</h1>
+
 <table class="tabla_cart">
 	<thead>
 		<tr>
@@ -19,16 +22,32 @@
 	</thead>
 
 	<tbody>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
+		<% total_cart = 0 %>
+		<% if session[:shopping_cart] %>
+			
+			<%  session[:shopping_cart].each do |row|  %>
+			<tr>
+				<td><input type="radiobutton"  /></td>
+				<td><%= row[:item] %></td>
+				<td><%= row[:quantity] %></td>
+				<td><%= row[:price] %></td>
+			</tr>
+				<% total_cart = total_cart + row[:price] %>
+			<% end %>
+		<% else %>
+			<tr>
+				<td colspan="4">Item Not Found</td>
+			</tr>
+		<% end %>
 
 	</tbody>
 
-
+	<tfoot>
+		<tr>
+			<td colspan="3">Total:</td>
+			<td><%= total_cart %></td>	
+		</tr>
+	</tfoot>
 </table>
 
 
