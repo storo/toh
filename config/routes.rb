@@ -74,7 +74,7 @@ Openhat::Application.routes.draw do
   match 'notification' => 'messages#notification'
   root :to => 'home#index'
 
-
+  match 'shopping_cart' => 'shopping#shopping_cart'
 
 
   # The priority is based upon order of creation:
