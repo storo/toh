@@ -2324,10 +2324,19 @@ ol li
     clear: both;
 }
 
+.title_cart{
+    font-size: 48px;
+    line-height: 24px;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 600;
+}
+
 .tabla_cart{
     border: 1px solid;
     width: 800px;
     margin: 10px 0px 10px 57px; 
+    font-family: 'Amatic SC', cursive;
+    font-weight: 400;
 }
 
 .tabla_cart thead{
@@ -2335,7 +2344,7 @@ ol li
 }
 
 .tabla_cart thead th{
-    
+    font-weight: 800;
 }
 
 .tabla_cart tbody{
