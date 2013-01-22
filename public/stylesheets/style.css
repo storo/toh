@@ -2356,7 +2356,7 @@ ol li
 
 .tabla_cart tbody td{
     font-size: 19px;
-    padding: 5px 0px 2px 10px;
+    padding: 12px 0px 12px 0px;
 }
 .tabla_cart tbody th{
     font-size: 45px;
@@ -2390,4 +2390,12 @@ ol li
 
 .centrado{
     text-align: center;
+}
+
+.col1{
+    width: 80px;
+}
+
+.col4{
+    width: 180px;
 }
