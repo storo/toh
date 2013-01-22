@@ -79,8 +79,8 @@
 
 	            <section class="info">
 	            	<h2>Hi <span><%= current_user.name %></span></h2>
-	                <span class="link"><%= link_to 'My profile', profile_path, :title => 'My profile'%> / <%= link_to "Account settings", accounts_settings_path, :title => 'Account settings' %> / <%= link_to ((session[:shopping_cart])? "My Cart ("+session[:shopping_cart].length.to_s
-                  +")" : "My Cart (0)"), '/shopping_cart/', :title => 'My Cart' %></span>
+	                <span class="link"><%= link_to 'My profile', profile_path, :title => 'My profile'%> / <%= link_to "Account settings", accounts_settings_path, :title => 'Account settings' %> / <%= link_to  "My Cart ("+ (session[:shopping_cart])? session[:shopping_cart].length.to_s : "0"
+                  +")" , '/shopping_cart/', :title => 'My Cart' %></span>
 	            </section>
 	        </section>
 			<% else %>
