@@ -2401,5 +2401,10 @@ ol li
 }
 .contenedor_boton a{
     width: 113px;
-    float: right;
 }
+    .contenedor_boton a.update{
+        float: left;        
+    }
+    .contenedor_boton a.checkout{
+        float: right;        
+    }
