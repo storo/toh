@@ -791,7 +791,7 @@ ul.list1 li.last, .video-block.second li.last {
 .register-form .button {
     margin:22px 0 34px 338px;
 }
-.register-form .button, .creative-block .button {
+.register-form .button, .creative-block .button , .button{
     background:url(../images/img_sprite.png) no-repeat -524px -340px;
     width:132px;
     padding-right:20px;
@@ -804,7 +804,7 @@ ul.list1 li.last, .video-block.second li.last {
     border:none;
     cursor:pointer;
 }
-.register-form .button:hover, .creative-block .button:hover {
+.register-form .button:hover, .creative-block .button:hover, .button:hover {
     background-position: -524px -389px;
 }
 .design-block {
