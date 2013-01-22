@@ -2379,3 +2379,15 @@ ol li
 .notfound{
     text-align: center;
 }
+
+.derecha {
+    text-align: right;
+}
+
+.izquierda{
+    text-align: left;
+}
+
+.centrado{
+    text-align: center;
+}

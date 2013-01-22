@@ -27,10 +27,10 @@
 			
 			<%  session[:shopping_cart].each do |row|  %>
 			<tr>
-				<td><input type="checkbox"  /></td>
-				<td><%= row[:item] %></td>
-				<td><%= row[:quantity] %></td>
-				<td><%= row[:price] %></td>
+				<td class="centrado"><input type="checkbox"  /></td>
+				<td class="izquierda"><%= row[:item] %></td>
+				<td class="centrado"><%= row[:quantity] %></td>
+				<td class="derecha"><%= row[:price] %></td>
 			</tr>
 				<% total_cart = total_cart.to_f + row[:price].to_f %>
 			<% end %>
