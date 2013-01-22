@@ -2329,6 +2329,7 @@ ol li
     line-height: 24px;
     font-family: 'Amatic SC', cursive;
     font-weight: 600;
+    margin: 23px 0px 20px 10px;
 }
 
 .tabla_cart{
@@ -2336,6 +2337,7 @@ ol li
     font-family: 'Amatic SC', cursive;
     font-weight: 600;
     margin: 10px 0px 20px 13px;
+    width: 910px;
 }
 
 .tabla_cart thead{
