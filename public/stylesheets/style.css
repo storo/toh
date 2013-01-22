@@ -2358,6 +2358,14 @@ ol li
     font-size: 19px;
     padding: 5px 0px 2px 10px;
 }
+.tabla_cart tbody th{
+    font-size: 19px;
+    padding: 5px 0px 2px 10px;
+}
+.tabla_cart tfoot tr{
+    border-top: solid 2px;
+}
+
 
 .total_label{
     text-align: right;
@@ -2367,4 +2375,7 @@ ol li
 .total_value{
     font-size: 33px;
     text-align: right;
+}
+.notfound{
+    text-align: center;
 }
