@@ -22,12 +22,12 @@
 	</thead>
 
 	<tbody>
-		<% total_cart = 0 %>
+		<% total_cart = '0.00' %>
 		<% if session[:shopping_cart] %>
 			
 			<%  session[:shopping_cart].each do |row|  %>
 			<tr>
-				<td><input type="radiobutton"  /></td>
+				<td><input type="checkbox"  /></td>
 				<td><%= row[:item] %></td>
 				<td><%= row[:quantity] %></td>
 				<td><%= row[:price] %></td>
@@ -45,7 +45,7 @@
 	<tfoot>
 		<tr>
 			<td colspan="3" class="total_label">Total:</td>
-			<td class="total_value"><%= total_cart %>&nbsp; </td>	
+			<td class="total_value"><%= total_cart %>$&nbsp; USD </td>	
 		</tr>
 	</tfoot>
 </table>
