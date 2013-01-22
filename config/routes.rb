@@ -60,6 +60,8 @@ Openhat::Application.routes.draw do
   match 'discountHeckle/:heckle' => 'tokens#discountHeckle'
   match 'beta' => 'home#beta'
   match 'contact' => "pages#contact", :as => 'contact', :via => 'post'
+
+  match 'shop_add' => 'shopping#add', :as => 'shop_add', :via => 'post'
   match 'cashout' => 'home#cashout'
 
   match  'performance_update/:id' => 'stages#performance_update'

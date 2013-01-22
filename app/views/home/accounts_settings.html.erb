@@ -547,7 +547,16 @@
                       service.cancel_return_url url_for(:only_path => false, :controller => 'tokens', :action => 'cancel') %>
                         <%#= submit_tag 'Buy'%>
                     <% #end %>
-
+                  
+                    <% form_tag(shop_add_path, :method=>'post') do %>
+                        <input type="hidden" name="shopping[item]"  value="<%= d.name %>" />
+                        <input type="hidden" name="shopping[uid]"  value="<%= d.id %>" />
+                        <input type="hidden" name="shopping[price]"  value="<%= d.price %>" />
+                        <input type="hidden" name="shopping[quantity]"  value="1" />
+                        <input type="hidden" name="shopping[item_type]"  value="tokens" />
+                        <input type="submit" value="add to cart" />
+                    <% end %>
+                    <!--  
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                        <input name="commit" type="submit" value="Buy">
 
@@ -572,7 +581,7 @@
                       <input id="tax" name="tax" type="hidden" value="0.00">
                       <input id="return" name="return" type="hidden" value="http://beta.theopenhat.com/buy_show">
                       <input id="cancel_return" name="cancel_return" type="hidden" value="http://beta.theopenhat.com/buy_cancel">
-                    </form>
+                    </form>-->
                   </section>
               <% end %>
               <section class="clear"></section>
