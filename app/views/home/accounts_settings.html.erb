@@ -548,7 +548,7 @@
                         <%#= submit_tag 'Buy'%>
                     <% #end %>
                   
-                    <% form_tag(shop_add_path, :method=>'post') do %>
+                    <%= form_tag(shop_add_path, :method=>'post') do %>
                         <input type="hidden" name="shopping[item]"  value="<%= d.name %>" />
                         <input type="hidden" name="shopping[uid]"  value="<%= d.id %>" />
                         <input type="hidden" name="shopping[price]"  value="<%= d.price %>" />
