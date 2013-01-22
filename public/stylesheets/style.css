@@ -2399,3 +2399,7 @@ ol li
 .col4{
     width: 180px;
 }
+.contenedor_boton a{
+    width: 113px;
+    float: right;
+}
