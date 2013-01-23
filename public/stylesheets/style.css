@@ -2411,3 +2411,12 @@ ol li
     .contenedor_boton a.checkout{
         float: right;        
     }
+
+.tabla_dropbox{
+    font-size: 54px;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 600;
+    margin: 10px 0px 20px 13px;
+    width: 910px;
+
+}
