@@ -77,7 +77,7 @@ Openhat::Application.routes.draw do
   root :to => 'home#index'
 
   match 'shopping_cart' => 'shopping#shopping_cart'
-
+  match 'upload_dropbox' => 'home#upload_dropbox'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

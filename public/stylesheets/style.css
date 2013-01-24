@@ -2428,3 +2428,16 @@ ol li
     font-size: 27px;
     padding: 5px 0px 4px 0px;
 }
+
+.parrafo{
+    font-size: 28px;
+    font-family: 'Amatic SC', cursive;
+    font-weight: 400;
+}
+    .parrafo a{
+        color: #D94601;
+        font-weight: 400;
+    }
+    .parrafo a:hover{
+        text-decoration: underline;
+    }
