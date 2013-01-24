@@ -2437,8 +2437,8 @@ ol li
     line-height: 24px !important;
 }
     .parrafo a{
-        color: #D94601;
-        font-weight: 400;
+        color: #D94601 !important;
+        font-weight: 600 !important;
     }
     .parrafo a:hover{
         text-decoration: underline;

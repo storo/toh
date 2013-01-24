@@ -219,7 +219,6 @@ $(function() {
     $("#tippers").colorbox({iframe:true, innerWidth:500, innerHeight:390,close:'X'});
     $(".cashout").colorbox({iframe:true, innerWidth:500, innerHeight:390,close:'X'});
     $(".modaltc").colorbox({iframe:true, innerWidth:500, innerHeight:390,close:'X'});
-    $("#upload_dropbox").colorbox({iframe:true, innerWidth:500, innerHeight:390,close:'X'});
 
 
     $('#closeStage').click(function(){

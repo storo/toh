@@ -242,7 +242,7 @@ class HomeController < ApplicationController
   def upload_dropbox
 
 
-      render :layout => false
+     
   end
 
 end
