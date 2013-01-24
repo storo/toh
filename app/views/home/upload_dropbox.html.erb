@@ -20,12 +20,12 @@
 
         
    
-        <%= text_field_tag("stage[ticket_price]",nil,:class => 'form-input-medio  required', :placeholder => 'Ticket Price') %>
+        <%#= text_field_tag("stage[ticket_price]",nil,:class => 'form-input-medio  required', :placeholder => 'Ticket Price') %>
       
-        <%= file_field_tag 'stage[performance_image]', :class => 'upload' %>
-        <%= text_field_tag 'stage[performance_image_fake]',nil, :class => 'form-input-file', :placeholder => 'Performance Image' %>
+        <%#= file_field_tag 'stage[performance_image]', :class => 'upload' %>
+        <%#= text_field_tag 'stage[performance_image_fake]',nil, :class => 'form-input-file', :placeholder => 'Performance Image' %>
        
-        <%= select_tag("stage[rate]", options_for_select([['General Audiences', 'general audiences'], ['Parental Guidance Suggested', 'parental guidance suggested'], ['Parents Strongly Cautioned', 'parents strongly cautioned'],['Restricted','restricted'],['No One 17 and Under Admitted','no one 17 and under admitted']]), :prompt => 'Content Rate', :class => 'form-input-select required') %>
+        <%#= select_tag("stage[rate]", options_for_select([['General Audiences', 'general audiences'], ['Parental Guidance Suggested', 'parental guidance suggested'], ['Parents Strongly Cautioned', 'parents strongly cautioned'],['Restricted','restricted'],['No One 17 and Under Admitted','no one 17 and under admitted']]), :prompt => 'Content Rate', :class => 'form-input-select required') %>
        
 
         <input name="submit" type="submit" value="Upload" class="button">
