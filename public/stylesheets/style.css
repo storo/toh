@@ -2430,9 +2430,11 @@ ol li
 }
 
 .parrafo{
-    font-size: 28px;
+    font-size: 24px !important;
     font-family: 'Amatic SC', cursive;
     font-weight: 400;
+    padding: 0px !important;
+    line-height: 24px !important;
 }
     .parrafo a{
         color: #D94601;
